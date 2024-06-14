@@ -1,0 +1,79 @@
+{% extends is_granted('ROLE_ADMIN')? "poco-layout.html.twig" : "agent-layout.html.twig" %}
+
+{% block title %}Show event{% endblock %}
+
+{%block breadcrumb%}
+<li class="breadcrumb-item">
+    {% if is_granted('ROLE_ADMIN') %}
+      <a href="{{path('app_admin')}}">Home</a>
+    {% else %}
+      <a href="{{path('agent_dashboard_index')}}">Home</a>
+    {% endif %}
+  </li>
+<li class="breadcrumb-item "> <a href="{{ path('app_events_list') }}">Event list</a></li>
+<li class="breadcrumb-item "> View event</li>
+
+{%endblock%}
+
+{%block top_actions%}
+ 
+{%endblock%}
+{% block body %}
+    <div class="row justify-content-center">
+		<div class="col-6">
+    <table class="table">
+        <tbody>
+        <tr>
+                <th>Agent</th>
+                <td>{{ calendar.user }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ calendar.title }}</td>
+            </tr>
+            <tr>
+                <th>Start</th>
+                <td>{{ calendar.start ? calendar.start|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>End</th>
+                <td>{{ calendar.end ? calendar.end|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ calendar.description }}</td>
+            </tr> 
+            <tr>
+                <th>Status</th>
+                <td ><span style="padding:5px;color:white;font-weight:bold;background-color:{{ calendar.isComplete?'green':'red' }}">{{ calendar.isComplete?'Completed':'Not completed yet' }}</span></td>
+            </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ calendar.client }}</td>
+            </tr>
+            {%if calendar.isComplete%}
+             <tr>
+                <th>Notes</th>
+                <td>{{ calendar.observations }}</td>
+            </tr>
+            {%endif%}
+        </tbody>
+    </table>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href={{referer}} class="btn btn-warning mt-1" style="color:black" type="button" >Back</a>
+
+     {%if not calendar.isComplete%}
+      <a href={{path('app_events_complete',{'id':calendar.id})}} class="btn btn-outline-success mt-1" type="button" >Complete</a>
+     {%endif%}
+     
+     <a class="btn  btn-outline-primary mt-1" href="{{ path('app_events_edit', {'id': calendar.id,'referer':referer}) }}">Edit</a>
+     {{ include('event/_delete_form.html.twig') }}
+</div>
+    </div>
+    </div>
+   
+
+
+
+ 
+{% endblock %}

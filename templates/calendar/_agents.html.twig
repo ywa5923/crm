@@ -1,0 +1,15 @@
+<div class="list-group">
+
+{%for agent in agents%}
+<label class="list-group-item" style="border-left: 1rem solid {{agent.calendarColor}}">
+    {%if agent.id in selectedAgents %}
+     <input name="agent-checkbox" class="form-check-input " checked type="checkbox" value="{{agent.id}}" onClick="onClickAgent(this)">
+    {%else%}
+     <input name="agent-checkbox" class="form-check-input " type="checkbox" value="{{agent.id}}" onClick="onClickAgent(this)">
+    {%endif%}
+   
+    {{agent}}
+</label>
+</li>
+{%endfor%}
+</div>

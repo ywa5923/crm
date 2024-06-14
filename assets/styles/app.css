@@ -1,3 +1,15 @@
+:root {
+  --bs-primary: #7e37d8 !important;
+}
+
 body {
-    background-color: skyblue;
+  background-color: rgb(250, 250, 250);
+}
+.btn-primary {
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-disabled-bg: var(--bs-primary);
+  --bs-btn-disabled-border-color: var(--bs-primary);
+  --bs-btn-hover-bg: #0bbfd7;
+  --bs-btn-hover-border-color: #0ba7d7;
 }

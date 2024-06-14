@@ -1,13 +1,11 @@
-version: '3'
+version: "3"
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
 
-###> symfony/mailer ###
+  ###< doctrine/doctrine-bundle ###
+
+  ###> symfony/mailer ###
   mailer:
     image: axllent/mailpit
     ports:

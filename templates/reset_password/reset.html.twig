@@ -1,0 +1,31 @@
+{% extends is_granted('ROLE_ADMIN')? "poco-layout.html.twig" : "agent-layout.html.twig" %}
+
+{% block title %}Change password{% endblock %}
+
+{%block breadcrumb%}
+  <li class="breadcrumb-item">
+    {% if is_granted('ROLE_ADMIN') %}
+      <a href="{{path('app_admin')}}">Home</a>
+    {% else %}
+      <a href="{{path('agent_dashboard_index')}}">Home</a>
+    {% endif %}
+  </li>
+  <li class="breadcrumb-item ">Security/Change Password</li>
+
+  {%endblock%}
+
+   
+{% block body %}
+       <div class="row justify-content-center">
+		<div class="col-6">
+			<h2 class="text-center">Reset your password</h2>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+	<button class="btn btn-primary" >{{ button_label|default('Change password') }}</button>
+</div>
+    {{ form_end(resetForm) }}
+    </div>
+    </div>
+{% endblock %}

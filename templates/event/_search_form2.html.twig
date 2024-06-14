@@ -1,0 +1,41 @@
+  <div class="row justify-content-center">
+		<div class="col-10">
+         <fieldset style=" padding:15px;border:2px dashed #37C0D1">
+    <legend>Filter Visits Table</legend>
+{{ form_start(searchForm,{'method': 'GET'}) }}
+    {{ form_errors(searchForm) }}
+
+    {{ form_row(searchForm.start,{'label':'Start Visit Date','required':false}) }}
+    {{ form_row(searchForm.end,{'label':'End Visit Date','required':false})}}
+    {%if is_granted('ROLE_ADMIN')%}
+     {{ form_row(searchForm.agent,{'label':'Select Agent','required':false}) }}
+    {%endif%}
+     {{ form_row(searchForm.client,{'label':'Select Client','required':false}) }}
+     {{ form_row(searchForm.county,{'label':'Select County','required':false}) }}
+   <div class="mb-3 row">
+    <label class="col-form-label col-sm-2 required">City</label> 
+
+    <div class="col-sm-10">
+    {{ form_widget(searchForm.city,{'label':'Select County','required':false}) }}
+     
+    <div class="result_box"  style="position:absolute;z-index:3;width:auto;background:white;">
+    <ul id="cities-list" style="">
+   
+    </ul>
+    </div>
+    </div>
+</div>
+
+       {{ form_row(searchForm.street,{'required':false}) }}
+{{ form_row(searchForm.completed,{'label':'Only completed visits','required':false}) }}
+ <input type="hidden" name="isSearch" value="true"/>
+<div class="d-grid  gap-2 d-md-flex justify-content-md-end">
+	 <button type="submit" class="btn mt-2 btn-outline-primary">Search</button>&nbsp;
+      <a type="button" class="btn mt-2 btn-outline-secondary" href="{{path('app_events_list')}}">Reset</a>
+</div>
+   &nbsp;
+{{ form_end(searchForm,{'render_rest': false}) }}
+</fieldset>
+</div>
+</div>
+ &nbsp;

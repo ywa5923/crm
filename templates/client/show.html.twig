@@ -1,0 +1,100 @@
+{% extends is_granted('ROLE_ADMIN')? "poco-layout.html.twig" : "agent-layout.html.twig" %}
+
+{% block title %}Client
+{% endblock %}
+
+{%block breadcrumb%}
+<li class="breadcrumb-item">
+	{%if is_granted('ROLE_ADMIN')%}
+		<a href="{{path('app_admin')}}">Dashboard</a>
+		{%else%}
+		<a href="{{path('agent_dashboard_index')}}">Dashboard</a>
+		{%endif%}</li>
+</li>
+<li class="breadcrumb-item ">
+	<a href="{{ path('app_client_list') }}">Client list</a>
+</li>
+
+<li class="breadcrumb-item ">
+	Client view
+</li>
+
+{%endblock%}
+
+{%block top_actions%}
+
+{%endblock%}
+{% block body %}
+	<div class="row justify-content-center">
+		<div class="col-6">
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>FirstName</th>
+						<td>{{ client.firstName }}</td>
+					</tr>
+					<tr>
+						<th>LastName</th>
+						<td>{{ client.lastName }}</td>
+					</tr>
+					<tr>
+						<th>Birthdate</th>
+						{%if (is_granted('ROLE_ADMIN')) or (app.user==client.agent)%}
+							<td>{{ client.birthdate ? client.birthdate|date('Y-m-d') : '' }}</td>
+							{%else%}
+							<td>{{include('feathericons/_lock.html.twig')}}</td>
+							{%endif%}</tr>
+					</tr>
+					<tr>
+						<th>Address</th>
+						{%if (is_granted('ROLE_ADMIN')) or (app.user==client.agent)%}
+							<td>{{ client.address }}</td>
+							{%else%}
+							<td>{{include('feathericons/_lock.html.twig')}}</td>
+							{%endif%}</tr>
+					</tr>
+					<tr>
+						<th>Email</th>
+						{%if (is_granted('ROLE_ADMIN')) or (app.user==client.agent)%}
+							<td>{{ client.email }}</td>
+							{%else%}
+							<td>{{include('feathericons/_lock.html.twig')}}</td>
+							{%endif%}</tr>
+					</tr>
+					<tr>
+						<th>Phone</th>
+						{%if (is_granted('ROLE_ADMIN')) or (app.user==client.agent)%}
+							<td>{{ client.phone }}</td>
+							{%else%}
+							<td>{{include('feathericons/_lock.html.twig')}}</td>
+							{%endif%}</tr>
+					</tr>
+					<tr>
+						<th>Company</th>
+						<td>{{ client.company }}</td>
+					</tr>
+					<tr>
+						<th>Workstation</th>
+						<td>{{ client.workstation }}</td>
+					</tr>
+					<tr>
+						<th>Asigned agent</th>
+						{%if (is_granted('ROLE_ADMIN')) or (app.user==client.agent)%}
+							<td>{{ client.agent }}</td>
+							{%else%}
+							<td>{{include('feathericons/_lock.html.twig')}}</td>
+							{%endif%}</tr>
+					</tr>
+				</tbody>
+			</table>
+			{%if (is_granted('ROLE_ADMIN')) or (app.user==client.agent)%}
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<a class="btn  btn-outline-primary mt-1" href="{{ path('app_client_edit', {'id': client.id}) }}">Edit</a>
+					{{ include('client/_delete_form.html.twig') }}
+				</div>
+				{%endif%}
+
+			</div>
+		</div>
+
+	{% endblock %}

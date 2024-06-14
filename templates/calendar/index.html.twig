@@ -1,0 +1,127 @@
+{% extends is_granted('ROLE_ADMIN')? "poco-layout.html.twig" : "agent-layout.html.twig" %}
+
+{% block title %}Calendar{% endblock %}
+{%block script%}
+  <script type="text/javascript" src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+  <script type="text/javascript" src="
+https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js
+"></script>
+<script type="text/javascript" src="https://unpkg.com/@popperjs/core@2"></script>
+<script type="text/javascript" src="https://unpkg.com/tippy.js@6"></script>
+  <script>
+
+    let addNewEventRoute = "{{ path('app_events_new') }}";
+    let editEventRoute = "{{ path('app_events_edit', { id: 'field_id' }) }}";
+    let viewEventRoute = "{{ path('app_events_show', {'id': 'field_id'}) }}";
+    let calendarDataRoute = "{{ path('app_calendar_data',{'id': 'field_id'}) }}";
+     let calendarRoute = "{{ path('app_calendar') }}";
+     {%if is_granted('ROLE_ADMIN')%}
+     let calendarDataSource=calendarDataRoute.replace('field_id', "");
+     
+     {%else%}
+     let calendarDataSource=calendarDataRoute.replace('field_id', "{{app.user.id}}");
+     {%endif%}
+ var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        selectable: true,
+        editable: true,
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+          start: "prev,next,today",
+          center: "title",
+          end: "dayGridMonth,timeGridWeek,timeGridDay"
+        },
+        select: function (info) {
+          // alert('selected ' + info.startStr + ' to ' + info.endStr);
+          let allow = confirm("Do you want to add a new event?");
+          if (!allow) 
+            return false;
+          start = moment(info.startStr).format('YYYY/MM/DD HH:mm');
+          end = moment(info.endStr).format('YYYY/MM/DD HH:mm');
+          // alert(start);
+          //FullCalendar.formatDate(info.startStr
+          //alert('selected ' + info.startStr + ' to ' + info.endStr);
+          window.location.href = addNewEventRoute + '?start=' + start + "&end=" + end;
+        },
+        events: calendarDataSource,
+        eventMouseEnter: function (info) {
+          //alert('Description: ' + info.event.extendedProps.description);
+        },
+      eventDidMount: function(info) {
+   
+      let html= "Event Title: "+info.event.title+
+      "<br>Event Description: "+info.event.extendedProps.description+
+      "<br>Agent: "+info.event.extendedProps.agent;
+      //"<br>Client: "+info.event.extendedProps.client;
+      tippy(info.el, {
+  content: html,
+  arrow: true,
+  allowHTML: true,
+});
+    },
+
+        eventClick: function (info) {
+          // let allow=confirm("Do you want to edit this event?");
+          //  if(!allow)
+          //  return false;
+          //editEventRoute = editEventRoute.replace('field_id', info.event.id);
+          viewEventRoute = viewEventRoute.replace('field_id', info.event.id);
+          window.location.href = viewEventRoute;
+
+        },
+        datesSet: function (dateInfo) {
+          //start=moment(dateInfo.startStr).format('YYYY/MM/DD HH:mm');
+          //alert(start)
+        }
+      });
+    document.addEventListener('DOMContentLoaded', function () {
+      calendar.render();
+    });
+
+    function onClickAgent(event) {
+      console.log(event.checked);
+      let userId=event.value;
+      let checked=event.checked;
+      let datasource = calendarDataRoute.replace('field_id', userId);
+      if(checked)
+      {
+        calendar.addEventSource(datasource);
+      }else{
+        let ev=calendar.getEventSources();
+        for(const element of ev){
+          if(element.url==datasource){
+           element.remove();
+          }
+        }
+      } 
+    }
+  </script>
+
+  {%endblock%}
+  {%block breadcrumb%}
+    <li class="breadcrumb-item">
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{path('app_admin')}}">Home</a>
+      {%else%}
+      <a href="{{path('agent_dashboard_index')}}">Home</a>
+      {%endif%}
+    </li>
+    <li class="breadcrumb-item ">Calendar
+    </li>
+
+    {%endblock%}
+
+    {% block body %}
+      <div class="row">
+        <div class="col-auto">
+          {% if is_granted('ROLE_ADMIN') %}
+            {{ include('calendar/_agents.html.twig') }}
+            {%endif%}
+          </div>
+          <div class="col">
+            <div id='calendar'></div>
+          </div>
+        </div>
+      {% endblock %}
+
+      {#https://www.youtube.com/watch?v=HaTN0_S-rew#}

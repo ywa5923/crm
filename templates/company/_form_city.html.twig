@@ -1,0 +1,16 @@
+<div class="mb-3 row">
+    <label class="col-form-label col-sm-2 required">City</label> 
+
+    <div class="col-sm-10">
+    {{ form_widget(form.city) }}
+     <div class="form-error">
+        {{ form_errors(form.city) }}
+    </div>
+    <div class="result_box"  style="position:absolute;z-index:3;width:auto;background:white;">
+    <ul id="{{cityId}}" style="">
+   
+    </ul>
+    </div>
+    </div>
+</div>
+

@@ -1,0 +1,61 @@
+{% extends is_granted('ROLE_ADMIN')? "poco-layout.html.twig" : "agent-layout.html.twig" %}
+
+{% block title %}Edit Calendar
+{% endblock %}
+
+{%block breadcrumb%}
+<li class="breadcrumb-item">
+	{% if is_granted('ROLE_ADMIN') %}
+		<a href="{{path('app_admin')}}">Home</a>
+	{% else %}
+		<a href="{{path('agent_dashboard_index')}}">Home</a>
+	{% endif %}
+</li>
+<li class="breadcrumb-item ">
+	<a href="{{ path('app_events_list') }}">Event list</a>
+</li>
+<li class="breadcrumb-item ">
+	Edit event</li>
+
+{%endblock%}
+
+{%block top_actions%}
+
+
+{%endblock%}
+{% block body %}
+
+
+	<div class="row justify-content-center">
+		<div class="col-6">
+
+			<h2 class="text-center">Complete Visit</h2>
+			{{ form_start(form) }}
+			<div class="my-custom-class-for-errors">
+				{{ form_errors(form) }}
+			</div>
+
+			<div class="form-control">
+				{{ form_widget(form.message,{
+                            'attr':{
+                                'rows':'15',
+                                'cols':'50',
+                                  'placeholder':'Add your observations here'
+                            }
+                          
+                        }) }}
+
+				<small>{{ form_help(form.message) }}</small>
+
+				<div class="form-error">
+					{{ form_errors(form.message) }}
+				</div>
+			</div>
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-primary mt-2" style="width:110px;">{{ button_label|default('Save') }}</button>
+    </div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'poco-layout.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+{%block stylesheets%}
+
+{%endblock%}
+
+{%block breadcrumb%}
+ <li class="breadcrumb-item"><a  href="{{path('app_admin')}}">Home</a></li>
+<li class="breadcrumb-item "><a href="{{path('users_list')}}">Sales Agents </a></li>
+<li class="breadcrumb-item active">Add new agent</li>
+
+{%endblock%}
+{% block body %}
+
+	<div class="row justify-content-center">
+		<div class="col-6">
+			{% for flash_error in app.flashes('verify_email_error') %}
+				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+			{% endfor %}
+
+
+			<h4 class="text-center">Add Sales Agent</h4>
+
+			{{ form_start(registrationForm) }}
+
+			{{ form_errors(registrationForm) }}
+			{{ form_row(registrationForm.firstName,{ 'label': 'First Name' }) }}
+			{{ form_row(registrationForm.lastName,{ 'label': 'Last Name' }) }}
+			{{ form_row(registrationForm.email) }}
+
+			{%if isEdit is not defined %}
+				{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+				{%endif%}
+
+
+				{{ form_row(registrationForm.location) }}
+
+				{{ form_row(registrationForm.calendarColor) }}
+				
+				{{ form_row(registrationForm.isVerified,{'label':'Account Active'}) }}
+				 <div class="text-center d-grid">
+				<button type="submit" class="w-100 btn btn-lg btn-primary">Save Agent</button>
+				</div>
+				{{ form_end(registrationForm) }}
+			</div>
+		</div>
+	{% endblock %}

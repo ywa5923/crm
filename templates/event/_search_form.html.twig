@@ -1,0 +1,29 @@
+<form class="form-inline" action="{{ path('app_events_list') }}">
+ <div class="form-group">
+    <label style="padding-right:8px;" >Start Date</label>
+  <input type="date" class="form-control mx-sm-3" name="start"   value="{{ app.request.query.get('start') }}" class="form-control" >
+</div>
+<div class="form-group">
+    <label style="padding-right:8px;" >End Date</label>
+  <input type="date" class="form-control mx-sm-3" name="end"  value="{{ app.request.query.get('end') }}" class="form-control" >
+</div>
+
+<div class="form-group">
+    <label style="padding-right:8px;">Agent</label>
+  <input type="text" class="form-control mx-sm-3" name="agent"  value="{{ app.request.query.get('agent') }}" class="form-control" >
+</div>
+ 
+  <div class="form-group">
+  <label style="padding:0 8px;"  for="completed">Completed</label>
+    <input type="checkbox" name="completed"  {{ app.request.query.get('completed') ? 'checked':'' }} id="completed">
+    
+  </div>
+
+   <input type="hidden"  name="isSearch" value="true">
+   
+  <button type="submit" class="mt-2 btn btn-outline-primary ">Search</button>&nbsp;
+    <a type="button " class="mt-2 btn btn-outline-secondary " href="{{path('app_events_list')}}">Reset</a>
+  
+ 
+</form>
+<hr/>

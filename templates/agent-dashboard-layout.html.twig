@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.bd-placeholder-img {
+				font-size: 1.125rem;
+				text-anchor: middle;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				user-select: none;
+			}
+
+			@media(min-width: 768px) {
+				.bd-placeholder-img-lg {
+					font-size: 3.5rem;
+				}
+			}
+		</style>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+		<link rel="stylesheet" type="text/css" href="{{ asset('styles/feathericon.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('dashboard/dashboard.css')}}"> {% block stylesheets %}{% endblock %}
+
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+
+		{% block head %}
+		{% endblock %}
+
+	</head>
+	<body>
+
+
+		<header class="navbar navbar-dark sticky-top  flex-md-nowrap p-0 shadow " style="background:#008B8B">
+			<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" style="background-color:#008B8B;" href="#">BeConcept CRM</a>
+			<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+			<div class="navbar-nav">
+				<div class="nav-item text-nowrap">
+
+					<a class="nav-link px-3" href="{{path('app_logout')}}">Sign out</a>
+				</div>
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+					<div class="position-sticky pt-3">
+						<ul class="nav flex-column">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="#">
+									<span data-feather="home"></span>
+									My Dashboard
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar-week" viewbox="0 0 24 24">
+										<path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+										<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+									</svg>
+									My Calendar
+								</a>
+							</li>
+
+						</ul>
+
+					</div>
+				</nav>
+
+				<main class="col-md-9 ms-sm-auto  col-lg-10 px-md-4">
+					<div class="d-flex  justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<span style="color:#000080;font-size:90%" >	Hello, {#{{ app.user.email }}#}</span>
+					
+						<div class="btn-toolbar mb-2 mb-md-0">
+							{%block top_actions%}
+							{% endblock%}
+						</div>
+
+
+					</div>
+					{% block body %}{% endblock %}
+
+				</div>
+
+			</main>
+		</div>
+
+{%block scripts%}
+<script src="{{asset('dashboard/bootstrap.min.js')}}" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>
+{%endblock%}
+		
+	</body>
+</html>

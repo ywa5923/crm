@@ -27,4 +27,24 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'bootstrap' => [
+        'version' => '5.3.3',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.3',
+        'type' => 'css',
+    ],
+    'moment' => [
+        'version' => '1.3.0',
+    ],
+    'tom-select' => [
+        'version' => '2.3.1',
+    ],
+    'tom-select/dist/css/tom-select.default.css' => [
+        'version' => '2.3.1',
+        'type' => 'css',
+    ],
 ];

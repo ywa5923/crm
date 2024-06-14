@@ -1,0 +1,48 @@
+
+
+
+{{ form_start(form) }}
+   {# {{ form_widget(form) }}#}
+   {{form_row(form.owner.firstName,{'label':"First Name"}) }}
+   {{form_row(form.owner.lastName,{'label':"Last Name"}) }}
+   {{form_row(form.owner.birthdate,{'label':"Birthdate"}) }}
+   {{form_row(form.owner.email,{'label':"Email"}) }}
+   {{form_row(form.name,{'label':"Company"}) }}
+   {{form_row(form.phone,{'label':"Phone"}) }}
+   {{form_row(form.workstation,{'label':"Workstation"}) }}
+   {{form_row(form.image,{'label':"Image"}) }}
+   {%if is_granted("ROLE_ADMIN")%}
+    {{form_row(form.agent,{'label':"Agent"}) }}
+    {%endif%}
+
+   {{form_row(form.active,{'label':"Is Active Client"}) }}
+   <fieldset style="background-color:#FCDFF1;padding:15px;">
+    <legend>Registration Address</legend>
+     {{form_row(form.registrationAddress.type,{'label':" ","value":"Registration Address",'attr':{'style':"display:none"}}) }}
+    {{form_row(form.registrationAddress.street,{'label':"Street"}) }}
+ {{form_row(form.registrationAddress.number,{'label':"Number"}) }}
+ {{form_row(form.registrationAddress.line1,{'label':"Adress Line"}) }}
+ {{form_row(form.registrationAddress.county,{'label':"County"}) }}
+ {%include 'company/_form_city.html.twig' with {'form':form.registrationAddress,'cityId':'cities-1'}%}
+
+ {{form_row(form.registrationAddress.zipCode,{'label':"Zip code"}) }}
+</fieldset>
+</br>
+  <fieldset style="background-color:#EDE4E9;padding:15px;">
+    <legend>Worksatation Address</legend>
+
+ {{form_row(form.workstationAddress.type,{'label':" ","value":"Workstation Address",'attr':{'style':"display:none"}}) }}
+
+ {{form_row(form.workstationAddress.street,{'label':"Street"}) }}
+{{form_row(form.workstationAddress.number,{'label':"Number"}) }}
+{{form_row(form.workstationAddress.line1,{'label':"Adress Line"}) }}
+ {{form_row(form.workstationAddress.county,{'label':"County"}) }}
+  {%include 'company/_form_city.html.twig' with {'form':form.workstationAddress,'cityId':'cities-2'}%}
+
+ {{form_row(form.workstationAddress.zipCode,{'label':"Zip code"}) }}
+</fieldset>
+{{ form_widget(form._token) }}
+   <div class="d-grid gap-2 mt-2 d-md-flex justify-content-md-end">
+	<button class="btn btn-primary" style="width:110px;">{{ button_label|default('Save') }}</button>
+</div>
+{{ form_end(form,{'render_rest': false}) }}

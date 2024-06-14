@@ -1,0 +1,23 @@
+<form action="{{ path('app_client_list') }}">
+  <div class="form-row">
+    <div class="col-md-2">
+      <input type="text" class="form-control" name="search_term" placeholder="Search">
+    </div>
+     <div class="form-group col-md-2">
+      <select name="search_field" id="inputState" class="form-control">
+        <option selected>Choose field</option>
+          <option value="c.firstName  LIKE :field">First Name</option>
+          <option value="c.lastName LIKE :field">Last Name</option>
+          <option value="c.company LIKE :field">Company</option>
+          <option value="c.workstation LIKE :field">Workstation</option>
+          <option value="c.address LIKE :field">Address</option>
+      </select>
+    </div>
+     
+      <button type="submit" class="btn btn-outline-primary">Search</button>&nbsp;
+     
+      
+      <a type="button" class="btn btn-outline-secondary" href="{{path('app_client_list')}}">Reset</a>
+      <input type="hidden" name="isSearch" value="true"/>
+</form>
+<hr/>

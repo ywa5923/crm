@@ -1,0 +1,40 @@
+{% extends is_granted('ROLE_ADMIN')? "poco-layout.html.twig" : "agent-layout.html.twig" %}
+
+
+{% block title %}Edit Client{% endblock %}
+
+{%block breadcrumb%}
+<li class="breadcrumb-item">
+	{%if is_granted('ROLE_ADMIN')%}
+		<a href="{{path('app_admin')}}">Dashboard</a>
+		{%else%}
+		<a href="{{path('agent_dashboard_index')}}">Home</a>
+		{%endif%}</li>
+</li>
+<li class="breadcrumb-item ">
+	<a href="{{ path('app_company_index') }}">Client list</a>
+</li>
+
+<li class="breadcrumb-item ">
+	Edit client
+</li>
+
+{%endblock%}
+
+
+{% block body %}
+    <div class="row justify-content-center">
+		<div class="col-6">
+			<h2 class="text-center">Edit client</h2>
+
+    {{ include('company/_form.html.twig', {'button_label': 'Update'}) }}
+
+    </div>
+    </div>
+{% endblock %}
+{% block script%}
+<script type="text/javascript">
+autocomplete("{{path('app_api_localities')}}","company_registrationAddress_city","cities-1","company_registrationAddress_county","company_registrationAddress_zipCode");
+autocomplete("{{path('app_api_localities')}}","company_workstationAddress_city","cities-2","company_workstationAddress_county","company_workstationAddress_zipCode");
+</script>
+{%endblock%}
